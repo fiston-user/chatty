@@ -1,41 +1,101 @@
+import { useEffect, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Button from '../../../components/button/Button';
 import Input from '../../../components/inputs/Input';
+import { authService } from '../../../services/api/auth/auth.service';
 import './Login.scss';
 
 const Login = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [errorMessages, setErrorMessages] = useState('');
+  const [alertType, setAlertType] = useState('');
+  const [user, setUser] = useState('');
+
+  const loginUser = async (event) => {
+    setLoading(true);
+    event.preventDefault();
+
+    try {
+      const result = await authService.signIn({
+        username,
+        password
+      });
+
+      // 1 - set logged in to true in local storage
+      // 2 - set username in localstorage
+      // 3 - dispach user to redux
+
+      setUser(result.data.user);
+      setKeepLoggedIn(true);
+      setHasError(false);
+      setAlertType('alert-success');
+    } catch (error) {
+      setLoading(false);
+      setHasError(true);
+      setAlertType('alert-error');
+      setErrorMessages(error?.response?.data.message);
+    }
+  };
+
+  useEffect(() => {
+    if (loading && !user) return;
+    if (user) {
+      console.log('user');
+      setLoading(false);
+    }
+  }, [loading, user]);
+
   return (
-    <div className="auth-inner">
-      {/* <div className="alerts alert-error" role="alert">
-        Error message
-      </div> */}
+    <div className="auth-inner" onSubmit={loginUser}>
+      {hasError && errorMessages && (
+        <div className={`alerts ${alertType}`} role="alert">
+          {errorMessages}
+        </div>
+      )}
       <form className="auth-form">
         <div className="form-input-container">
           <Input
             id="username"
             name="username"
             type="text"
-            value="Jane"
+            value={username}
             labelText="Username"
             placeholder="Enter username"
+            style={{ border: `${hasError ? '1px solid #fa9b8a' : ''}` }}
+            handleChange={(event) => setUsername(event.target.value)}
           />
           <Input
             id="password"
             name="password"
             type="password"
-            value="****"
+            value={password}
             labelText="Password"
             placeholder="Enter password"
-            handleChange={() => {}}
+            style={{ border: `${hasError ? '1px solid #fa9b8a' : ''}` }}
+            handleChange={(event) => setPassword(event.target.value)}
           />
 
           <label className="checkmark-container" htmlFor="checkbox">
-            <Input id="checkbox" name="checkbox" type="checkbox" value={false} handleChange={() => {}} />
+            <Input
+              id="checkbox"
+              name="checkbox"
+              type="checkbox"
+              value={keepLoggedIn}
+              handleChange={() => setKeepLoggedIn(!keepLoggedIn)}
+            />
             Keep me signed in
           </label>
         </div>
-        <Button label={'LOGIN'} className="auth-button button" disabled={false} handleChange={() => {}} />
+        <Button
+          label={`${loading ? 'SIGNIN IN PROGRESS...' : 'SIGNIN'}`}
+          className="auth-button button"
+          disabled={!username || !password}
+        />
 
         <Link to={'/forgot-password'}>
           <span className="forgot-password">
