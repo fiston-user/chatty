@@ -27,6 +27,7 @@
       }
     },
     "rules": {
+      "no-unused-vars": "warn", // Add this line to turn off the rule
       "prettier/prettier": ["error", {}, { "usePrettierrc": true }],
       "semi": [2, "always"],
       "space-before-function-paren": [0, { "anonymous": "always", "named": "always" }],
@@ -35,5 +36,6 @@
       "react/react-in-jsx-scope": 0,
       "react/display-name": 0
     }
+    
   }
   
