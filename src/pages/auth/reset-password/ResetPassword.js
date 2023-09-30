@@ -1,11 +1,11 @@
+import backgroundImage from '@assets/images/background.jpg';
+import Button from '@components/button/Button';
+import Input from '@components/inputs/Input';
+import '@pages/auth/reset-password/ResetPassword.scss';
+import { authService } from '@services/api/auth/auth.service';
 import { useState } from 'react';
 import { FaArrowLeft } from 'react-icons/fa';
 import { Link, useSearchParams } from 'react-router-dom';
-import backgroundImage from '../../../assets/images/background.jpg';
-import Button from '../../../components/button/Button';
-import Input from '../../../components/inputs/Input';
-import { authService } from '../../../services/api/auth/auth.service';
-import './ResetPassword.scss';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState('');

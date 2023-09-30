@@ -1,10 +1,10 @@
+import Button from '@components/button/Button';
+import Input from '@components/inputs/Input';
+import '@pages/auth/login/Login.scss';
+import { authService } from '@services/api/auth/auth.service';
 import { useEffect, useState } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import Button from '../../../components/button/Button';
-import Input from '../../../components/inputs/Input';
-import { authService } from '../../../services/api/auth/auth.service';
-import './Login.scss';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -15,6 +15,7 @@ const Login = () => {
   const [errorMessages, setErrorMessages] = useState('');
   const [alertType, setAlertType] = useState('');
   const [user, setUser] = useState('');
+  const navigate = useNavigate();
 
   const loginUser = async (event) => {
     setLoading(true);
@@ -44,11 +45,8 @@ const Login = () => {
 
   useEffect(() => {
     if (loading && !user) return;
-    if (user) {
-      console.log('user');
-      setLoading(false);
-    }
-  }, [loading, user]);
+    if (user) navigate('/app/social/streams');
+  }, [loading, user, navigate]);
 
   return (
     <div className="auth-inner" onSubmit={loginUser}>
