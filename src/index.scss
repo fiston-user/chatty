@@ -1,6 +1,6 @@
-@import "https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap";
-@import "src/colors/variables.scss";
-@import "react-loading-skeleton/dist/skeleton.css";
+@import 'https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap';
+@import 'src/colors/variables.scss';
+@import 'react-loading-skeleton/dist/skeleton.css';
 
 * {
   margin: 0;
@@ -20,11 +20,18 @@
 body {
   margin: 0;
   overflow: hidden;
-  font-family: "DM Sans", sans-serif;
+  font-family: 'DM Sans', sans-serif;
   height: 100vh;
   width: 100%;
   background-color: var(--white-10);
   position: fixed;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+::-webkit-scrollbar {
+  display: none;
 }
 
 h1,
@@ -51,8 +58,11 @@ p {
   font-size: 1rem;
   line-height: 1.5;
   border-radius: 0.25rem;
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  transition:
+    color 0.15s ease-in-out,
+    background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
 }
 
 .notifications,
