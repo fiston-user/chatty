@@ -1,7 +1,7 @@
 import { addNotification, clearNotification } from '@redux/reducers/notifications/notification.reducer';
 import { addUser, clearUser } from '@redux/reducers/user/user.reducer';
 import { avatarColors } from '@services/utils/static.data';
-import { floor, random } from 'lodash';
+import { floor, random, some } from 'lodash';
 
 export class Utils {
   static avatarColor() {
@@ -86,5 +86,13 @@ export class Utils {
       id = id.replace(/['"]+/g, '');
     }
     return `https://res.cloudinary.com/the-drod-team/image/upload/v${version}/${id}`;
+  }
+
+  static checkIfUserIsBlocked(blocked, userId) {
+    return some(blocked, (id) => id === userId);
+  }
+
+  static checkIfUserIsFollowed(userFollowers, postCreatorId, userId) {
+    return some(userFollowers, (user) => user._id === postCreatorId || postCreatorId === userId);
   }
 }
