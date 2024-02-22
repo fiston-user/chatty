@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
-import Button from '../../../components/button/Button';
-import Input from '../../../components/inputs/Input';
-import './ForgotPassword.scss';
-import backgroundImage from '../../../assets/images/background.jpg';
+import Button from '@components/button/Button';
+import Input from '@components/inputs/Input';
+import backgroundImage from '@assets/images/background.jpg';
+import { authService } from '@services/api/auth/auth.service';
 import { useState } from 'react';
-import { authService } from '../../../services/api/auth/auth.service';
+
+import '@pages/auth/forgot-password/ForgotPassword.scss';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
