@@ -99,7 +99,7 @@ const Register = () => {
           />
         </div>
         <Button
-          label={`${loading ? 'SIGNUP IN PROGRESS' : 'SIGNUP'}`}
+          label={`${loading ? 'SIGNUP IN PROGRESS...' : 'SIGNUP'}`}
           className="auth-button button"
           disabled={!username || !email || !password || loading}
         />

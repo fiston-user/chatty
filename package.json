@@ -8,7 +8,9 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.7",
+    "history": "^5.3.0",
     "lodash": "^4.17.21",
+    "msw": "^0.44.2",
     "react": "^18.2.0",
     "react-app-rewired": "^2.2.1",
     "react-dom": "^18.2.0",
@@ -27,7 +29,7 @@
     "prettier:check": "prettier --check 'src/**/*.{js,json}'",
     "prettier:fix": "prettier --write 'src/**/*.{js,json}'",
     "build": "react-app-rewired build",
-    "test": "react-app-rewired test"
+    "test": "react-app-rewired test --coverage --forceExit --detectOpenHandles --watchAll=false --transformIgnorePatterns \"node_modules/(?!axios)/\""
   },
   "eslintConfig": {
     "extends": [
@@ -59,7 +61,49 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^12.0.0",
+    "jest-canvas-mock": "^2.5.2",
     "prettier": "^3.2.5",
     "react-app-alias": "^2.2.2"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/test/*.js?(x)",
+      "!**/node_modules/**"
+    ],
+    "coverageReporters": [
+      "text-summary",
+      "lcov"
+    ],
+    "moduleNameMapper": {
+      "^axios$": "axios/dist/node/axios.cjs",
+      "@components/(.*)": [
+        "<rootDir>/src/components/$1"
+      ],
+      "@services/(.*)": [
+        "<rootDir>/src/services/$1"
+      ],
+      "@hooks/(.*)": [
+        "<rootDir>/src/hooks/$1"
+      ],
+      "@mocks/(.*)": [
+        "<rootDir>/src/mocks/$1"
+      ],
+      "@pages/(.*)": [
+        "<rootDir>/src/pages/$1"
+      ],
+      "@redux/(.*)": [
+        "<rootDir>/src/redux/$1"
+      ],
+      "@assets/(.*)": [
+        "<rootDir>/src/assets/$1"
+      ],
+      "@colors/(.*)": [
+        "<rootDir>/src/colors/$1"
+      ],
+      "@root/(.*)": [
+        "<rootDir>/src/$1"
+      ]
+    }
   }
 }
